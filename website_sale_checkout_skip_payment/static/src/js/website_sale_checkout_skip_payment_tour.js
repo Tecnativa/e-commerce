@@ -9,7 +9,7 @@ odoo.define("website_sale_checkout_skip_payment.tour", function (require) {
 
     var steps = [
         {
-            trigger: "a:contains('Customizable Desk')",
+            trigger: "a:contains('Product test skip payment')",
         },
         {
             trigger: "a:contains('Add to Cart')",

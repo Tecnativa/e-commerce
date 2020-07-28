@@ -13,11 +13,15 @@ class WebsiteSaleHttpCase(HttpCase):
             'customer': True,
             'skip_website_checkout_payment': True,
         })
-        # Delete optional products for avoid popup window
-        product = self.env.ref('product.product_product_4_product_template')
-        product.optional_product_ids = [(6, 0, [])]
-        # Active "Add to cart" in /shop view
-        self.env.ref('website_sale.products_add_to_cart').active = True
+        # Use a high website_sequence to force display it on first shop page.
+        # I use a service product to avoid to the delivery provider extra step.
+        self.product_template = self.env['product.template'].create({
+            'name': 'Product test skip payment',
+            'type': 'service',
+            'list_price': 750.00,
+            'website_published': True,
+            'website_sequence': 9999,
+        })
 
     def test_ui_website(self):
         """Test frontend tour."""
