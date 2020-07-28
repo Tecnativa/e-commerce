@@ -16,6 +16,8 @@ class WebsiteSaleHttpCase(HttpCase):
         # Delete optional products for avoid popup window
         product = self.env.ref('product.product_product_4_product_template')
         product.optional_product_ids = [(6, 0, [])]
+        # Active "Add to cart" in /shop view
+        self.env.ref('website_sale.products_add_to_cart').active = True
 
     def test_ui_website(self):
         """Test frontend tour."""
