@@ -1,6 +1,6 @@
 // Copyright 2020 Tecnativa - Alexandre Díaz
 // License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-odoo.define("website_snippet_carousel_product.s_product_carousel", function(require) {
+odoo.define("website_snippet_carousel_product.s_product_carousel", function (require) {
     "use strict";
 
     const core = require("web.core");
@@ -15,7 +15,7 @@ odoo.define("website_snippet_carousel_product.s_product_carousel", function(requ
         /**
          * @override
          */
-        start: function() {
+        start: function () {
             const _this = this;
             const limit = Number(this.$target.attr("data-products-limit")) || 12;
             const domain = this.$target.attr("data-domain") || "[]";
@@ -46,7 +46,7 @@ odoo.define("website_snippet_carousel_product.s_product_carousel", function(requ
                     products_per_slide: products_per_slide,
                 },
             }).then(
-                function(object_html) {
+                function (object_html) {
                     const $object_html = $(object_html);
                     $object_html.find(".oe_product").removeClass("oe_image_full");
                     const count = $object_html
@@ -81,7 +81,7 @@ odoo.define("website_snippet_carousel_product.s_product_carousel", function(requ
                         $target: _this.$target.find(".oe_website_sale"),
                     });
                 },
-                function() {
+                function () {
                     if (_this.editableMode) {
                         _this.$target.append(
                             $("<p/>", {
@@ -102,7 +102,7 @@ odoo.define("website_snippet_carousel_product.s_product_carousel", function(requ
         /**
          * @override
          */
-        destroy: function() {
+        destroy: function () {
             this.$target.empty();
             this._super.apply(this, arguments);
         },
