@@ -41,7 +41,7 @@ class ProductCarouselWebsiteSale(WebsiteSale):
             records_grouped.append(record_list)
 
         template = "website_snippet_carousel_product.s_product_carousel_items"
-        return request.website.viewref(template).render(
+        return request.website.viewref(template)._render(
             {
                 "objects": records_grouped,
                 "keep": QueryURL("/shop"),
