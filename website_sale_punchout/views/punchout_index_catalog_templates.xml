@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<!-- prettier-ignore-start -->
+<template id="punchout_index_catalog_items">
+<IndexItem t-foreach="products" t-as="product">
+    <IndexItemPunchout>
+        <ItemID>
+            <SupplierPartID><t t-esc="product.id" /></SupplierPartID>
+        </ItemID>
+        <PunchoutDetail t-att-punchoutLevel="product.punchout_detail_level">
+            <t t-foreach="langs" t-as="lang">
+                <!-- The expected format is lang-COUNTRY while we got lang_COUNTRY -->
+                <t t-set="lang_code" t-value="lang.replace('_', '-')" />
+                <Description t-att="{'xml:lang': lang_code}"><t
+                                t-esc="product.with_context(lang=lang).name"
+                            /></Description>
+            </t>
+            <URL t-if="product.punchout_url"><t t-esc="product.punchout_url" /></URL>
+            <Classification t-if="product.unspsc" domain="UNSPSC"><t
+                            t-esc="product.unspsc"
+                        /></Classification>
+        </PunchoutDetail>
+    </IndexItemPunchout>
+</IndexItem>
+</template>
+
+<template id="punchout_index_catalog_xml"><t
+            t-translation="off"
+        >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE Index SYSTEM "http://xml.cxml.org/schemas/cXML/1.2.016/cXML.dtd"&gt;</t>
+<Index>
+    <SupplierID t-att-domain="supplier_domain"><t t-esc="supplier_id" /></SupplierID>
+    <t t-call="website_sale_punchout.punchout_index_catalog_items" />
+</Index>
+</template>
+<!-- prettier-ignore-end -->
+</odoo>
