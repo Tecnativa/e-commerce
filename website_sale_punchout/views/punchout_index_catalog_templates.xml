@@ -33,5 +33,107 @@
     <t t-call="website_sale_punchout.punchout_index_catalog_items" />
 </Index>
 </template>
+
+<template id="punchout_profile_request_xml"><t
+            t-translation="off"
+        >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE cXML SYSTEM "http://xml.cxml.org/schemas/cXML/1.2.014/cXML.dtd"&gt;</t>
+<cXML t-att-payloadID="ariba_email" timestamp="2001-03-12T18:39:09-08:00">
+    <Header>
+        <From>
+            <Credential domain="NetworkID">
+                <Identity><t t-out="supplier_id" /></Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="NetworkID">
+                <Identity><t t-out="supplier_id" /></Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="NetworkID">
+                <Identity><t t-out="supplier_id" /></Identity>
+                <SharedSecret><t t-out="supplier_id" /></SharedSecret>
+            </Credential>
+            <UserAgent>Our Download Application, v1.0</UserAgent>
+        </Sender>
+    </Header>
+    <Request>
+        <ProfileRequest />
+    </Request>
+</cXML>
+</template>
+
+<template id="punchout_setup_request_xml"><t
+            t-translation="off"
+        >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;!DOCTYPE cXML SYSTEM "http://xml.cxml.org/schemas/cXML/1.2.014/cXML.dtd"&gt;</t>
+    <cXML t-att-payloadID="ariba_email" timestamp="2001-03-12T18:39:09-08:00">
+        <Response>
+            <Status code="200" text="OK" />
+            <PunchOutSetupResponse>
+            <StartPage>
+                <URL><t t-esc="start_url" /></URL>
+            </StartPage>
+            </PunchOutSetupResponse>
+        </Response>
+    </cXML>
+    </template>
+
+
+<template id="punchout_sale_order_items">
+<ItemIn t-foreach="order.order_lines" t-as="line">
+        <ItemID>
+            <SupplierPartID><t t-esc="line.product_id.id" /></SupplierPartID>
+        </ItemID>
+        <ItemDetail>
+            <UnitPrice>
+                <Money currency="USD"><t t-esc="line.product_id.unit_price" /></Money>
+            </UnitPrice>
+            <Description xml:lang="en"><t t-esc="line.product_id.name" /></Description>
+            <UnitOfMeasure><t t-esc="line.product_uom.name" /></UnitOfMeasure>
+            <Classification t-if="product.unspsc" domain="UNSPSC"><t
+                        t-esc="product.unspsc"
+                    /></Classification>
+        </ItemDetail>
+</ItemIn>
+</template>
+
+<template id="punchout_order_message_xml"><t
+            t-translation="off"
+        >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE Index SYSTEM "http://xml.cxml.org/schemas/cXML/1.2.014/cXML.dtd"&gt;</t>
+<cXML t-att-payloadID="ariba_email" timestamp="2001-03-12T18:39:09-08:00">
+    <Header>
+		<From>
+			<Credential domain="DUNS">
+				<Identity>12345678</Identity>
+			</Credential>
+		</From>
+		<To>
+			<Credential domain="NetworkID">
+				<Identity>AN01000002792</Identity>
+			</Credential>
+		</To>
+		<Sender>
+			<Credential domain="www.workchairs.com">
+				<Identity>PunchoutResponse</Identity>
+			</Credential>
+			<UserAgent>Our PunchOut Site V4.2</UserAgent>
+		</Sender>
+	</Header>
+    <Message>
+		<PunchOutOrderMessage>
+			<BuyerCookie>1J3YVWU9QWMTB</BuyerCookie>
+			<PunchOutOrderMessageHeader operationAllowed="edit">
+				<Total>
+					<Money currency="USD">14.27</Money>
+				</Total>
+			</PunchOutOrderMessageHeader>
+        </PunchOutOrderMessage>
+        <t t-call="website_sale_punchout.punchout_sale_order_items" />
+    </Message>
+</cXML>
+</template>
 <!-- prettier-ignore-end -->
 </odoo>

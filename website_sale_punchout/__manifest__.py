@@ -10,6 +10,11 @@
     "maintainers": ["chienandalu"],
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "depends": ["product"],
-    "data": ["views/punchout_index_catalog_templates.xml"],
+    "depends": ["website_sale", "purchase"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/punchout_index_catalog_templates.xml",
+        "views/res_config_settings_view.xml",
+        "views/website_shop.xml",
+    ],
 }
