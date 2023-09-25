@@ -12,7 +12,7 @@
         <xpath expr="//*[@id='product_details']">
             <t t-if="product.website_attachment_ids">
                 <hr />
-                <div class="card o_not_editable" id="product_attachments">
+                <div class="card o_not_editable h-auto" id="product_attachments">
                     <div class="card-header" id="product_attachments_header">
                         <button
                             class="btn btn-block text-left"
