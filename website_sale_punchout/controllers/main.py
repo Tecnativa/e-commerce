@@ -11,8 +11,8 @@ from lxml import etree
 from odoo import fields
 from odoo.http import request, route
 
-from odoo.addons.website.controllers.main import Website
 from odoo.addons.payment.controllers.portal import PaymentProcessing
+from odoo.addons.website.controllers.main import Website
 
 SITEMAP_CACHE_TIME = datetime.timedelta(hours=12)
 _logger = logging.getLogger(__name__)
