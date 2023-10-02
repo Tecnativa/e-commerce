@@ -4,7 +4,7 @@
     "name": "Punchot Catalog",
     "summary": "Allows to generate a Punchout Catalog to upload to Ariba NetWork"
     " categories",
-    "version": "13.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Product",
     "website": "https://github.com/OCA/e-commerce",
     "maintainers": ["chienandalu"],
